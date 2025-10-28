@@ -1,60 +1,116 @@
-1. Run this application to add and fetch item details.
+# ItemService
 
-2. Run command: mvn clean install
+A backend microservice built with Spring Boot to power item management and search functionality.  
+This service provides REST endpoints for creating, retrieving, updating, and deleting items — ideal for integrating into frontend clients like search applications, catalog UIs, or e-commerce backends.
 
-3. cURL to upload Item Details to h2 for testing:
+---
 
-curl --location 'http://localhost:9090/api/items/add' \
---header 'Content-Type: application/json' \
---data '[
-  { "name": "Laptop", "description": "High performance laptop", "image": "https://via.placeholder.com/150", "price": 999.99 },
-  { "name": "Smartphone", "description": "Latest model smartphone", "image": "https://via.placeholder.com/150", "price": 799.99 },
-  { "name": "Headphones", "description": "Noise-cancelling headphones", "image": "https://via.placeholder.com/150", "price": 199.99 },
-  { "name": "Bluetooth Speaker", "description": "Portable speaker", "image": "https://via.placeholder.com/150", "price": 59.99 },
-  { "name": "Keyboard", "description": "Mechanical keyboard", "image": "https://via.placeholder.com/150", "price": 89.99 },
-  { "name": "Mouse", "description": "Ergonomic mouse", "image": "https://via.placeholder.com/150", "price": 49.99 },
-  { "name": "Monitor", "description": "4K UHD monitor", "image": "https://via.placeholder.com/150", "price": 299.99 },
-  { "name": "Webcam", "description": "1080p HD webcam", "image": "https://via.placeholder.com/150", "price": 69.99 },
-  { "name": "USB Hub", "description": "Multiport USB hub", "image": "https://via.placeholder.com/150", "price": 25.99 },
-  { "name": "External Hard Drive", "description": "2TB external drive", "image": "https://via.placeholder.com/150", "price": 109.99 },
-  { "name": "Desk Lamp", "description": "LED desk lamp", "image": "https://via.placeholder.com/150", "price": 39.99 },
-  { "name": "Chair", "description": "Ergonomic office chair", "image": "https://via.placeholder.com/150", "price": 149.99 },
-  { "name": "Backpack", "description": "Laptop backpack", "image": "https://via.placeholder.com/150", "price": 59.99 },
-  { "name": "Power Bank", "description": "10000mAh portable charger", "image": "https://via.placeholder.com/150", "price": 29.99 },
-  { "name": "Smart Watch", "description": "Fitness tracker smartwatch", "image": "https://via.placeholder.com/150", "price": 199.99 },
-  { "name": "Tablet", "description": "Android tablet", "image": "https://via.placeholder.com/150", "price": 249.99 },
-  { "name": "Stylus Pen", "description": "Pen for tablet", "image": "https://via.placeholder.com/150", "price": 19.99 },
-  { "name": "Portable Fan", "description": "USB mini fan", "image": "https://via.placeholder.com/150", "price": 12.99 },
-  { "name": "Router", "description": "Dual band Wi-Fi router", "image": "https://via.placeholder.com/150", "price": 79.99 },
-  { "name": "HDMI Cable", "description": "6ft HDMI cable", "image": "https://via.placeholder.com/150", "price": 9.99 },
-  { "name": "Wireless Charger", "description": "Fast charging pad", "image": "https://via.placeholder.com/150", "price": 29.99 },
-  { "name": "Camera", "description": "Mirrorless digital camera", "image": "https://via.placeholder.com/150", "price": 699.99 },
-  { "name": "Tripod", "description": "Lightweight camera tripod", "image": "https://via.placeholder.com/150", "price": 49.99 },
-  { "name": "Gaming Console", "description": "Next-gen gaming console", "image": "https://via.placeholder.com/150", "price": 499.99 },
-  { "name": "Game Controller", "description": "Wireless game controller", "image": "https://via.placeholder.com/150", "price": 59.99 },
-  { "name": "TV", "description": "55-inch smart TV", "image": "https://via.placeholder.com/150", "price": 599.99 },
-  { "name": "Streaming Stick", "description": "4K streaming device", "image": "https://via.placeholder.com/150", "price": 39.99 },
-  { "name": "Coffee Maker", "description": "Drip coffee machine", "image": "https://via.placeholder.com/150", "price": 89.99 },
-  { "name": "Blender", "description": "Kitchen blender", "image": "https://via.placeholder.com/150", "price": 49.99 },
-  { "name": "Air Fryer", "description": "Compact air fryer", "image": "https://via.placeholder.com/150", "price": 99.99 },
-  { "name": "Toaster", "description": "2-slice toaster", "image": "https://via.placeholder.com/150", "price": 24.99 },
-  { "name": "Water Bottle", "description": "Stainless steel bottle", "image": "https://via.placeholder.com/150", "price": 14.99 },
-  { "name": "Notebook", "description": "Hardcover notebook", "image": "https://via.placeholder.com/150", "price": 6.99 },
-  { "name": "Pen Set", "description": "Fine tip pens", "image": "https://via.placeholder.com/150", "price": 11.99 },
-  { "name": "Planner", "description": "2025 daily planner", "image": "https://via.placeholder.com/150", "price": 19.99 },
-  { "name": "Yoga Mat", "description": "Non-slip yoga mat", "image": "https://via.placeholder.com/150", "price": 39.99 },
-  { "name": "Resistance Bands", "description": "Fitness bands set", "image": "https://via.placeholder.com/150", "price": 22.99 },
-  { "name": "Dumbbells", "description": "Adjustable dumbbell pair", "image": "https://via.placeholder.com/150", "price": 89.99 },
-  { "name": "Jump Rope", "description": "Speed jump rope", "image": "https://via.placeholder.com/150", "price": 9.99 },
-  { "name": "Book Light", "description": "Clip-on reading light", "image": "https://via.placeholder.com/150", "price": 15.99 },
-  { "name": "Extension Cord", "description": "6-outlet power strip", "image": "https://via.placeholder.com/150", "price": 13.99 },
-  { "name": "Laundry Basket", "description": "Foldable laundry bin", "image": "https://via.placeholder.com/150", "price": 18.99 },
-  { "name": "Wall Clock", "description": "Minimalist wall clock", "image": "https://via.placeholder.com/150", "price": 29.99 },
-  { "name": "Shoe Rack", "description": "3-tier shoe organizer", "image": "https://via.placeholder.com/150", "price": 44.99 },
-  { "name": "Floor Mat", "description": "Anti-slip floor mat", "image": "https://via.placeholder.com/150", "price": 27.99 },
-  { "name": "Curtains", "description": "Blackout window curtains", "image": "https://via.placeholder.com/150", "price": 54.99 },
-  { "name": "Mirror", "description": "Full-length mirror", "image": "https://via.placeholder.com/150", "price": 69.99 },
-  { "name": "Wall Art", "description": "Abstract canvas painting", "image": "https://via.placeholder.com/150", "price": 39.99 },
-  { "name": "Plant Pot", "description": "Ceramic indoor planter", "image": "https://via.placeholder.com/150", "price": 17.99 }
-]
-'
+## 🚀 Features
+
+- CRUD (Create, Read, Update, Delete) operations on items  
+- Search eligible fields (name, description, tags, etc.)  
+- Pagination support for large result sets  
+- Clean separation of controller, service, repository layers  
+- Built with Spring Boot, Spring Data JPA, and H2/MySQL (configurable)  
+- Easy to extend with filters, sorts or additional endpoints  
+
+---
+
+## 🛠️ Getting Started
+
+### Prerequisites  
+- Java 17 (or whichever version you use)  
+- Maven (or Gradle)  
+- Git  
+
+### Clone the repository  
+```bash
+git clone https://github.com/Siddham97/itemservice.git
+cd itemservice
+Install dependencies & build
+bash
+Copy code
+mvn clean install
+# or for Gradle: ./gradlew build
+Run the service
+bash
+Copy code
+mvn spring-boot:run
+# or
+java -jar target/itemservice-0.0.1-SNAPSHOT.jar
+Once running, the API is typically available at http://localhost:8080/.
+
+⚙️ Configuration
+Edit src/main/resources/application.properties (or application.yml) to configure your database and other properties. For example:
+
+ini
+Copy code
+spring.datasource.url=jdbc:mysql://localhost:3306/itemdb
+spring.datasource.username=root
+spring.datasource.password=yourpassword
+spring.jpa.hibernate.ddl-auto=update
+
+# H2 (for development/test)
+spring.datasource.url=jdbc:h2:mem:itemdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=
+spring.h2.console.enabled=true
+You can also override with environment variables or command-line parameters:
+
+ini
+Copy code
+-Dspring.profiles.active=prod
+📁 Project Structure (example)
+css
+Copy code
+itemservice/
+├── src/
+│   ├── main/
+│   │   ├── java/com/example/itemservice/
+│   │   │   ├── controller/
+│   │   │   ├── service/
+│   │   │   ├── repository/
+│   │   │   └── model/
+│   │   └── resources/
+│   │       ├── application.properties
+│   │       └── data.sql
+├── pom.xml
+└── README.md
+🧪 Usage Examples
+Create an item
+bash
+Copy code
+POST /api/items
+Content-Type: application/json
+
+{
+  "name": "Item Name",
+  "description": "Item description",
+  "price": 29.99,
+  "tags": ["tag1", "tag2"]
+}
+Get items (with pagination)
+arduino
+Copy code
+GET /api/items?page=0&size=20
+Search items
+sql
+Copy code
+GET /api/items/search?query=something&page=0&size=10
+Update an item
+bash
+Copy code
+PUT /api/items/{itemId}
+Content-Type: application/json
+
+{
+  "name": "Updated Name",
+  "description": "Updated description",
+  "price": 24.99,
+  "tags": ["tag1", "tag3"]
+}
+Delete an item
+bash
+Copy code
+DELETE /api/items/{itemId}
